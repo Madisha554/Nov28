@@ -2,55 +2,69 @@ import { useState	 } from 'react';
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
 import Content from './content.jsx'
+import AddItems from "./AddItem.jsx"
+import SearchItem from './SearchItem.jsx'
+
 
 const App = () => {
+      const [items, setItems] = useState(JSON.parse(localStorage.getItem('shoppingList')));
+      const [newItem, setNewItem] = useState('');
+      const [search, setSearch] = useState('');
 
-  const [items, setItems] = useState([
-    {
-        id:1,
-        checked: true,
-        item: "Item 1"
-    },
-    {
-        id:2,
-        checked: false,
-        item: "Item 2"
-    },
-    {
-        id:3,
-        checked: true,
-        item: "Item 3"
-    },
-    {
-        id:4,
-        checked: false,
-        item: "Item 4"
+
+      const SaveandSetItemst = (newItems) =>{
+        setItems(newItems);
+        localStorage.setItem('shoppingList', JSON.stringify(newItems));
+      };
+
+      const AddItem = (item) =>{
+        const id =items.length ? items[items.length - 1].id +1 : 1;
+        const MyNewItem = {id, checked: false, item};
+        const listItems = [...items, MyNewItem];
+        SaveandSetItemst(listItems);
+      }
+      const handleSubmit = (e) =>{
+        e.preventDefault();
+        if(!newItem){
+          alert("Please enter an item");
+          return;  
+        } 
+        AddItem(newItem);
+        setNewItem('')
+      };
+
+    const handleChange = (id) =>{
+      const listItems = items.map((item) => item.id === id? {...item, checked: !item.checked}: item) ;
+      SaveandSetItemst(listItems);
+  }
+
+    const handleDelete = (id) =>{
+    const newList = items.filter((item) => id !== item.id);
+    SaveandSetItemst(newList);
     }
-]);
 
-const handleChange = (id) =>{
-const listItems = items.map((item) => item.id === id? {...item, checked: !item.checked}: item) ;
-setItems(listItems);
-localStorage.setItem('shoppingList', JSON.stringify(listItems));
-}
-const handleDelete = (id) =>{
-// console.log(id); 
-const newList = items.filter((item) => id !== item.id);
-setItems(newList)
-localStorage.setItem('shoppingList', JSON.stringify(newList));
 
-}
 
   return (
-    <div className='min-h-screen bg-slate-50 dark:bg-black dark:text-white'>
+    <div className='min-h-screen flex flex-col bg-slate-50 dark:bg-black dark:text-white'>
       {/* <UseState /> */}
       <Header 
         title="React with Tailwind"
       />
-      <Content 
-        items={items} 
+      <SearchItem 
+        search={search}
+        setSearch = {setSearch}
+      />
+      <Content
+        items={items.filter((item) => ((item.item).toLowerCase()).includes(search.toLowerCase()))} 
         handleChange={handleChange} 
         handleDelete={handleDelete}
+      />
+      
+      <AddItems
+        newItem = {newItem}
+        setNewItem = {setNewItem}
+        handleSubmit = {handleSubmit}
       />
       <Footer 
         length={items.length}

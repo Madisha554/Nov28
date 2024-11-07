@@ -1,5 +1,5 @@
 
-const Header = ({ title}) =>{
+const Header = ({ title }) =>{
 
 
     return(
@@ -10,10 +10,10 @@ const Header = ({ title}) =>{
                 </h1>
                 <div className="right-0">
                     <nav className="hidden md:block space-x-8 text-2xl sm:text-xl" aria-label="main">
-                        <a href="#rockets" class="hover:opacity-90">Docs</a>
-                        <a href="#testimonials" class="hover:opacity-90">About Us</a>
-                        <a href="#testimonials" class="hover:opacity-90">Services</a>
-                        <a href="#contact" class="hover:opacity-90">Contact Us</a>
+                        <a href="#rockets" className="hover:opacity-90">Docs</a>
+                        <a href="#testimonials" className="hover:opacity-90">About Us</a>
+                        <a href="#testimonials" className="hover:opacity-90">Services</a>
+                        <a href="#contact" className="hover:opacity-90">Contact Us</a>
                     </nav>
                 </div>
             </section>
