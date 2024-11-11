@@ -8,8 +8,12 @@ import SearchItem from './SearchItem.jsx'
 
 const App = () => {
       const [items, setItems] = useState(JSON.parse(localStorage.getItem('shoppingList')));
+
       const [newItem, setNewItem] = useState('');
+
       const [search, setSearch] = useState('');
+      
+      const [color, setColor] = useState('')
 
 
       const SaveandSetItemst = (newItems) =>{
@@ -54,7 +58,10 @@ const App = () => {
       <SearchItem 
         search={search}
         setSearch = {setSearch}
+        color={color}
+        setColor={setColor}
       />
+      
       <Content
         items={items.filter((item) => ((item.item).toLowerCase()).includes(search.toLowerCase()))} 
         handleChange={handleChange} 

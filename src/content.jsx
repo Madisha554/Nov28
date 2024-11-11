@@ -4,7 +4,7 @@ const Content = ({handleDelete, handleChange, items}) =>{
     return(
         <main className="max-w-4xl mx-auto  flex flex-grow justify-center 
       p-6 items-center  mb-4 
-      max-h-[57.3vh] overflow-auto">
+      sm:max-h-[72.4vh] max-h-[63.7vh] overflow-auto">
     
             {items.length ?(
                 <ItemList 
